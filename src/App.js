@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import s from "./app.module.css";
 
-function App() {
+import { Helmet } from "react-helmet";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={s.container}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Pepsi meet</title>
+        <link rel="canonical" href="https://pepsi-meet.vercel.app/" />
+        <meta name="description" content="Map" />
+      </Helmet>
+      <img src="background.svg" alt="Pepsi" className={s.background_img} />
+      <div>
+        <button type="button">
+          <img src="/pepsi_logo.svg" alt="btn_open" />
+        </button>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
