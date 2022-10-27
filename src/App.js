@@ -12,11 +12,9 @@ const App = () => {
         <meta name="description" content="Map" />
       </Helmet>
       <img src="background.svg" alt="Pepsi" className={s.background_img} />
-      <div>
-        <button type="button">
-          <img src="/pepsi_logo.svg" alt="btn_open" />
-        </button>
-      </div>
+      <button type="button">
+        <img src="/pepsi_logo.svg" alt="btn_open" className={s.btn_logo} />
+      </button>
     </div>
   );
 };
