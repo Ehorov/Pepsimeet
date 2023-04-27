@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import Form from "./components/Form/Form";
 import TelegramSender from "./components/TelegramSender/TelegramSender";
+import Button from "./components/Button/Button";
 import s from "./app.module.css";
 
 const App = () => {
