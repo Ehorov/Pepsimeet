@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .container {
   position: fixed;
   top: 0;
@@ -8,6 +13,7 @@
   background-size: 200% 400%;
   animation: gradient 27s ease infinite;
 }
+
 @keyframes gradient {
   0% {
     background-position: 80% 0%;
@@ -19,8 +25,10 @@
     background-position: 80% 0%;
   }
 }
-.background_img {
+
+.backgroundImg {
   width: 90%;
+  max-height: 95%;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -28,96 +36,8 @@
   transform: translate(-50%, -50%);
 }
 
-.container button {
-  background-color: rgba(0, 0, 0, 0);
-  border: none;
-  position: absolute;
-  -webkit-animation: moveX 2s linear 0s infinite alternate,
-    moveY 3.4s linear 0s infinite alternate;
-  -moz-animation: moveX 2s linear 0s infinite alternate,
-    moveY 3.4s linear 0s infinite alternate;
-  -o-animation: moveX 2s linear 0s infinite alternate,
-    moveY 3.4s linear 0s infinite alternate;
-  animation: moveX 2s linear 0s infinite alternate,
-    moveY 3.4s linear 0s infinite alternate;
-}
-
-@-webkit-keyframes moveX {
-  from {
-    left: 0%;
-  }
-  to {
-    left: 100%;
-  }
-}
-@-moz-keyframes moveX {
-  from {
-    left: 0%;
-  }
-  to {
-    left: 100%;
-  }
-}
-@-o-keyframes moveX {
-  from {
-    left: 0%;
-  }
-  to {
-    left: 100%;
-  }
-}
-@keyframes moveX {
-  from {
-    left: 0%;
-  }
-  to {
-    left: 100%;
-  }
-}
-
-@-webkit-keyframes moveY {
-  from {
-    top: 0%;
-  }
-  to {
-    top: 100%;
-  }
-}
-@-moz-keyframes moveY {
-  from {
-    top: 0%;
-  }
-  to {
-    top: 100%;
-  }
-}
-@-o-keyframes moveY {
-  from {
-    top: 0%;
-  }
-  to {
-    top: 100%;
-  }
-}
-@keyframes moveY {
-  from {
-    top: 0%;
-  }
-  to {
-    top: 100%;
-  }
-}
-
-.btn_logo {
-  display: block;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+*,
+*:focus,
+*:hover {
+  outline: none;
 }

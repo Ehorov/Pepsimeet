@@ -1,8 +1,22 @@
+import React, { useState } from "react";
+import { Helmet } from "react-helmet";
+import Form from "./components/Form/Form";
+import TelegramSender from "./components/TelegramSender/TelegramSender";
 import s from "./app.module.css";
 
-import { Helmet } from "react-helmet";
-
 const App = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    date: "",
+    time: "",
+    comment: "",
+  });
+
+  const toggleForm = () => {
+    setIsFormOpen(!isFormOpen);
+  };
+
   return (
     <div className={s.container}>
       <Helmet>
@@ -11,10 +25,17 @@ const App = () => {
         <link rel="canonical" href="https://pepsi-meet.vercel.app/" />
         <meta name="description" content="Map" />
       </Helmet>
-      <img src="background.svg" alt="Pepsi" className={s.background_img} />
-      <button type="button">
-        <img src="/pepsi_logo.svg" alt="btn_open" className={s.btn_logo} />
-      </button>
+      <img src="/background.svg" alt="Pepsi" className={s.backgroundImg} />
+      {isFormOpen ? (
+        <Form
+          formData={formData}
+          setFormData={setFormData}
+          setIsFormOpen={setIsFormOpen}
+        />
+      ) : (
+        <TelegramSender formData={formData} setIsFormOpen={setIsFormOpen} />
+      )}
+      <Button onClick={toggleForm} />
     </div>
   );
 };

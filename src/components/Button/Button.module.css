@@ -1,0 +1,39 @@
+.btnOpen {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  position: absolute;
+  animation: moveX 4s linear 0s infinite alternate,
+    moveY 7.12s linear 0s infinite alternate;
+}
+
+@keyframes moveX {
+  from {
+    left: 0;
+  }
+  to {
+    left: calc(100% - 100px);
+  }
+}
+
+@keyframes moveY {
+  from {
+    top: 0;
+  }
+  to {
+    top: calc(100% - 100px);
+  }
+}
+
+.btnLogo {
+  display: block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
