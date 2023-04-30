@@ -23,7 +23,7 @@ const App = () => {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Pepsi meet</title>
-        <link rel="canonical" href="https://pepsi-meet.vercel.app/" />
+        <link rel="canonical" href="http://pepsimeet.vercel.app/" />
         <meta name="description" content="Map" />
       </Helmet>
       <img src="/background.svg" alt="Pepsi" className={s.backgroundImg} />
@@ -34,7 +34,9 @@ const App = () => {
           setIsFormOpen={setIsFormOpen}
         />
       ) : (
-        <TelegramSender formData={formData} setIsFormOpen={setIsFormOpen} />
+        <div>
+          <TelegramSender formData={formData} setIsFormOpen={setIsFormOpen} />
+        </div>
       )}
       <Button onClick={toggleForm} />
     </div>

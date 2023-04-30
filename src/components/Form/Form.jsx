@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import s from "./Form.module.css";
-import Modal from "../Modal/Modal";
 import TelegramSender from "../TelegramSender/TelegramSender";
 
 const Form = ({ setIsFormOpen }) => {
@@ -19,41 +18,17 @@ const Form = ({ setIsFormOpen }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setIsModalOpen(true);
     setFormResult(formData);
-    console.log(formData);
-
-    // відправляємо повідомлення в телеграм
-    const res = await fetch("/api/send-telegram-message", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      console.log("Telegram message sent!");
-    } else {
-      console.error("Error sending telegram message!");
-    }
-
-    setIsModalOpen(false);
-    setIsFormOpen(false);
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setIsFormOpen(false);
-  };
+  const formRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const modal = document.querySelector(".modal");
-      if (modal && !modal.contains(event.target)) {
-        setIsModalOpen(false);
+      if (formRef.current && !formRef.current.contains(event.target)) {
         setIsFormOpen(false);
       }
     };
@@ -63,31 +38,26 @@ const Form = ({ setIsFormOpen }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setIsFormOpen, setIsModalOpen]);
+  }, [formRef, setIsFormOpen]);
 
   return (
     <>
-      {isModalOpen && (
-        <Modal onClose={handleModalClose}>
-          <div className={s.modalContent}>
-            <h2>Your date is confirmed!</h2>
-            <p>Name: {formResult.name}</p>
-            <p>Date: {formResult.date}</p>
-            <p>Time: {formResult.time}</p>
-            <p>Comment: {formResult.comment}</p>
-            <TelegramSender formData={formResult} />
-          </div>
-        </Modal>
+      {isModalOpen && formResult && (
+        <div className={s.modal}>
+          <TelegramSender
+            formResult={formResult}
+            setIsFormOpen={setIsFormOpen}
+          />
+        </div>
       )}
 
-      <form className={s.form} onSubmit={handleSubmit}>
+      <form className={s.form} onSubmit={handleSubmit} ref={formRef}>
         <h1>Get a date</h1>
-
         <input
           type="name"
           name="name"
           value={formData.name}
-          placeholder="Nickname, @"
+          placeholder="Nickname"
           autoComplete="true"
           maxLength="27"
           onChange={handleChange}
@@ -113,6 +83,7 @@ const Form = ({ setIsFormOpen }) => {
           className={s.formComment}
           onChange={handleChange}
         />
+
         <button type="submit">Ok</button>
       </form>
     </>

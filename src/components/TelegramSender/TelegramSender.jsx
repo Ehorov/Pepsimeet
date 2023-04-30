@@ -1,43 +1,41 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const TelegramSender = ({ formData, onSent }) => {
-  const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-
-  useEffect(() => {
-    if (isSent) {
-      onSent();
-    }
-  }, [isSent, onSent]);
+const TelegramSender = ({ formResult, setIsFormOpen }) => {
+  const [isSending, setIsSending] = useState(true);
 
   const sendMessage = async () => {
-    setIsSending(true);
     try {
-      const { name, date, time, comment } = formData;
-      const message = `New date request\nName: ${name}\nDate: ${date}\nTime: ${time}\nComment: ${comment}`;
-      await axios.post(
+      if (!formResult) return;
+      const res = await fetch(
         `https://api.telegram.org/bot${process.env.REACT_APP_TELEGRAM_BOT_TOKEN}/sendMessage`,
         {
-          chat_id: process.env.REACT_APP_TELEGRAM_CHAT_ID,
-          text: message,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: process.env.REACT_APP_TELEGRAM_CHAT_ID,
+            text: `New date request:\nName: @${formResult.name}\nDate: ${formResult.date}\nTime: ${formResult.time}\nComment: ${formResult.comment}`,
+          }),
         }
       );
-      setIsSent(true);
+
+      if (res.ok) {
+        console.log("Telegram message sent!");
+        setIsSending(false);
+        setIsFormOpen(false);
+      } else {
+        console.error("Error sending telegram message!");
+      }
     } catch (error) {
-      console.error(error);
-    } finally {
-      setIsSending(false);
+      console.error("Error sending telegram message:", error);
     }
   };
 
-  return (
-    <div>
-      {isSending && <p>Sending message...</p>}
-      {isSent && <p>Message sent to Telegram!</p>}
-      {isSent && onSent && onSent()}
-    </div>
-  );
-};
+  if (isSending) {
+    sendMessage();
+  }
 
+  return <></>;
+};
 export default TelegramSender;
