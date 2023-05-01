@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import Form from "./components/Form/Form";
 import TelegramSender from "./components/TelegramSender/TelegramSender";
 import Button from "./components/Button/Button";
+import CurfewWarning from "./components/CurfewWarning/CurfewWarning";
 import s from "./app.module.css";
 
 const App = () => {
@@ -13,6 +14,8 @@ const App = () => {
     time: "",
     comment: "",
   });
+
+  const [isCurfewWarningOpen, setIsCurfewWarningOpen] = useState(false);
 
   const toggleForm = () => {
     setIsFormOpen(!isFormOpen);
@@ -37,6 +40,9 @@ const App = () => {
         <div>
           <TelegramSender formData={formData} setIsFormOpen={setIsFormOpen} />
         </div>
+      )}
+      {isCurfewWarningOpen && (
+        <CurfewWarning setIsCurfewWarningOpen={setIsCurfewWarningOpen} />
       )}
       <Button onClick={toggleForm} />
     </div>

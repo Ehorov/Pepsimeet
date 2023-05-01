@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const TelegramSender = ({ formResult, setIsFormOpen }) => {
   const [isSending, setIsSending] = useState(true);
-
+  console.log(formResult);
   const sendMessage = async () => {
     try {
       if (!formResult) return;
@@ -15,7 +15,11 @@ const TelegramSender = ({ formResult, setIsFormOpen }) => {
           },
           body: JSON.stringify({
             chat_id: process.env.REACT_APP_TELEGRAM_CHAT_ID,
-            text: `New date request:\nName: @${formResult.name}\nDate: ${formResult.date}\nTime: ${formResult.time}\nComment: ${formResult.comment}`,
+            text: `New date request:\nName: ${formResult.name}\nDate: ${
+              formResult.date
+            }\nTime: ${formResult.startTime}\nNumber of pepsi: ${1}\nComment: ${
+              formResult.comment
+            }`,
           }),
         }
       );

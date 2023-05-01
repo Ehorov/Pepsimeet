@@ -1,0 +1,44 @@
+.curfew_warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.curfew_warning__content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.curfew_warning__title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.curfew_warning__text {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.curfew_warning__close-btn {
+  background-color: #ff1744;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.curfew_warning__close-btn:hover {
+  background-color: #d50000;
+}
