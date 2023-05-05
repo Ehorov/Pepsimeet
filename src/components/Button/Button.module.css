@@ -4,6 +4,7 @@
   position: absolute;
   animation: moveX 4s linear 0s infinite alternate,
     moveY 7.12s linear 0s infinite alternate;
+  z-index: 2;
 }
 
 @keyframes moveX {

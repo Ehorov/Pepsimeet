@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const TelegramSender = ({ formResult, setIsFormOpen }) => {
   const [isSending, setIsSending] = useState(true);
-  console.log(formResult);
+  const pepsiCount = () => {};
   const sendMessage = async () => {
     try {
       if (!formResult) return;
@@ -15,11 +15,9 @@ const TelegramSender = ({ formResult, setIsFormOpen }) => {
           },
           body: JSON.stringify({
             chat_id: process.env.REACT_APP_TELEGRAM_CHAT_ID,
-            text: `New date request:\nName: ${formResult.name}\nDate: ${
+            text: `${formResult.name} wants to meet you on ${
               formResult.date
-            }\nTime: ${formResult.startTime}\nNumber of pepsi: ${1}\nComment: ${
-              formResult.comment
-            }`,
+            } at ${formResult.startTime} for ${pepsiCount()} cans of Pepsi`,
           }),
         }
       );

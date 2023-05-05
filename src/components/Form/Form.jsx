@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import s from "./Form.module.css";
 import TelegramSender from "../TelegramSender/TelegramSender";
 import CurfewWarning from "../CurfewWarning/CurfewWarning";
+import Weather from "../Weather/Weather";
 
 const Form = ({ setIsFormOpen }) => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ const Form = ({ setIsFormOpen }) => {
     endTime: "",
     comment: "",
   });
-
+  const [weatherData, setWeatherData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formResult, setFormResult] = useState(null);
   const [isCurfewWarningOpen, setIsCurfewWarningOpen] = useState(false);
@@ -19,6 +20,16 @@ const Form = ({ setIsFormOpen }) => {
   const handleChange = ({ target: { name, value } }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
+
+  useEffect(() => {
+    if (formData.date && formData.startTime && formData.endTime) {
+      setWeatherData({
+        date: formData.date,
+        startTime: formData.startTime,
+        endTime: formData.endTime,
+      });
+    }
+  }, [formData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,6 +44,7 @@ const Form = ({ setIsFormOpen }) => {
       setIsCurfewWarningOpen(true);
     } else {
       setIsCurfewWarningOpen(false);
+
       setIsModalOpen(true);
       setFormResult(modifiedFormData);
     }
@@ -81,9 +93,9 @@ const Form = ({ setIsFormOpen }) => {
           />
         </div>
       )}
-
       <form className={s.form} onSubmit={handleSubmit} ref={formRef}>
         <h1>Get a date</h1>
+        <Weather weatherData={weatherData} />
         <input
           type="name"
           name="name"
@@ -139,5 +151,4 @@ const Form = ({ setIsFormOpen }) => {
     </>
   );
 };
-
 export default Form;
