@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const Weather = ({ date, startTime }) => {
+const Weather = (props) => {
+  const { date, startTime } = props;
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
   const [lastDateTime, setLastDateTime] = useState({ date, startTime });
@@ -27,9 +28,9 @@ const Weather = ({ date, startTime }) => {
         .catch((error) => {
           setError(error.message);
         });
-    }
 
-    setLastDateTime({ date, startTime });
+      setLastDateTime({ date, startTime });
+    }
   }, [date, startTime]);
 
   if (error) {
@@ -39,6 +40,9 @@ const Weather = ({ date, startTime }) => {
   if (!weather) {
     return <div>Loading...</div>;
   }
+  console.log(weather.temperature);
+  console.log(weather.description);
+  console.log(date, startTime);
 
   return (
     <div>

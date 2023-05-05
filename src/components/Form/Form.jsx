@@ -86,7 +86,7 @@ const Form = ({ setIsFormOpen }) => {
   return (
     <>
       {isModalOpen && formResult && (
-        <div className={s.modal}>
+        <div>
           <TelegramSender
             formResult={formResult}
             setIsFormOpen={setIsFormOpen}
@@ -95,7 +95,8 @@ const Form = ({ setIsFormOpen }) => {
       )}
       <form className={s.form} onSubmit={handleSubmit} ref={formRef}>
         <h1>Get a date</h1>
-        <Weather weatherData={weatherData} />
+        <Weather startTime={formData.startTime} date={formData.date} />
+
         <input
           type="name"
           name="name"
