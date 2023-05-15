@@ -3,6 +3,7 @@ import s from "./Form.module.css";
 import TelegramSender from "../TelegramSender/TelegramSender";
 import CurfewWarning from "../CurfewWarning/CurfewWarning";
 import Weather from "../Weather/Weather";
+import Counter from "../Counter/Counter";
 
 const Form = ({ setIsFormOpen }) => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const Form = ({ setIsFormOpen }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formResult, setFormResult] = useState(null);
   const [isCurfewWarningOpen, setIsCurfewWarningOpen] = useState(false);
+  const [interval, setInterval] = useState(null);
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -28,6 +30,11 @@ const Form = ({ setIsFormOpen }) => {
         startTime: formData.startTime,
         endTime: formData.endTime,
       });
+      const start = new Date(`2023-01-01T${formData.startTime}`);
+      const end = new Date(`2023-01-01T${formData.endTime}`);
+      const interval = Math.abs(end.getTime() - start.getTime());
+
+      setInterval(interval);
     }
   }, [formData]);
 
@@ -93,9 +100,10 @@ const Form = ({ setIsFormOpen }) => {
           />
         </div>
       )}
+      <Weather startTime={formData.startTime} date={formData.date} />
+
       <form className={s.form} onSubmit={handleSubmit} ref={formRef}>
         <h1>Get a date</h1>
-        <Weather startTime={formData.startTime} date={formData.date} />
 
         <input
           type="name"
@@ -149,6 +157,7 @@ const Form = ({ setIsFormOpen }) => {
           />
         )}
       </form>
+      <Counter interval={interval} />
     </>
   );
 };

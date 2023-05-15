@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Rain from "../Rain/Rain";
+import Counter from "../Counter/Counter";
 import Snowfall from "../Snow/Snow";
 import Stars from "../Stars/Stars";
 import s from "./Weather.module.css";
@@ -46,13 +47,13 @@ const Weather = (props) => {
   }
 
   if (!weather) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return (
     <div>
-      <p>Temperature: {weather.temperature}°C</p>
-      <p>Description: {weather.description}</p>
+      {/* <p>Temperature: {weather.temperature}°C</p>
+      <p>Description: {weather.description}</p> */}
       {weather.description.includes("clouds") ||
       weather.description.toLowerCase().includes("rain") ||
       weather.description.toLowerCase().includes("drizzle") ||
@@ -93,13 +94,13 @@ const Weather = (props) => {
         <div className={s.sun}></div>
       ) : null}
 
-      {weather.description === "clear sky" ||
+      {/* {weather.description === "clear sky" ||
       (weather.description.includes("clouds") &&
         weather.description !== "Overcast clouds") ? (
         <div className={s.moon}>
           <img src={process.env.PUBLIC_URL + "/weather/moon.svg"} alt="moon" />
         </div>
-      ) : null}
+      ) : null} */}
       {weather.description === "clear sky" ? <Stars /> : null}
 
       {weather.description.toLowerCase().includes("rain") ||
@@ -108,6 +109,7 @@ const Weather = (props) => {
         <Rain />
       ) : null}
       {weather.description.toLowerCase().includes("snow") ? <Snowfall /> : null}
+      <Counter temperature={weather.temperature} />
     </div>
   );
 };
