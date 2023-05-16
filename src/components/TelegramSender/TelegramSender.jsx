@@ -3,7 +3,7 @@ import Counter from "../Counter/Counter";
 
 const TelegramSender = ({ formResult, setIsFormOpen }) => {
   const [isSending, setIsSending] = useState(true);
-  console.log(Counter);
+
   const sendMessage = async () => {
     try {
       if (!formResult) return;

@@ -22,7 +22,7 @@ const Weather = (props) => {
 
     if (daysDifference >= 1 && daysDifference <= 5) {
       const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=Dnipro&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`;
-
+      console.log(process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY);
       fetch(apiUrl)
         .then((response) => {
           if (!response.ok) {
@@ -60,7 +60,12 @@ const Weather = (props) => {
           return response.json();
         })
         .then((data) => {
-          const currentWeatherData = data.data[0];
+          let currentWeatherData;
+          if (daysDifference === 6) {
+            currentWeatherData = data.data[5];
+          } else {
+            currentWeatherData = data.data[6];
+          }
           setWeather({
             temperature: Math.round(currentWeatherData.temp),
             description: currentWeatherData.weather.description,
@@ -83,8 +88,8 @@ const Weather = (props) => {
   }
   return (
     <div>
-      {/* <p>Temperature: {weather.temperature}°C</p>
-      <p>Description: {weather.description}</p> */}
+      <p>Temperature: {weather.temperature}°C</p>
+      <p>Description: {weather.description}</p>
       {/* {weather.description.includes("clouds") ||
       weather.description.toLowerCase().includes("rain") ||
       weather.description.toLowerCase().includes("drizzle") ||
