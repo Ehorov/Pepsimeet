@@ -5,7 +5,6 @@ import TelegramSender from "./components/TelegramSender/TelegramSender";
 import Button from "./components/Button/Button";
 import CurfewWarning from "./components/CurfewWarning/CurfewWarning";
 import Weather from "./components/Weather/Weather";
-
 import s from "./app.module.css";
 
 const App = () => {

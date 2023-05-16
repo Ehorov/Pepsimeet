@@ -1,0 +1,116 @@
+.fog {
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+.fog_img img {
+  height: 100%;
+}
+.fog_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 600%;
+  height: 100%;
+  animation: fogMovement linear infinite;
+}
+
+@keyframes fogMovement {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.fog_img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+.fog_img_first {
+  left: 0;
+  animation: fogMovementFirst 120s linear infinite;
+}
+
+@keyframes fogMovementFirst {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.fog_img_second {
+  left: 15%;
+  animation: fogMovementSecond 100s linear infinite;
+}
+
+@keyframes fogMovementSecond {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.fog_img_third {
+  left: 35%;
+  animation: fogMovementThird 80s linear infinite;
+}
+
+@keyframes fogMovementThird {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.fog_img_fourth {
+  left: 50%;
+  animation: fogMovementFourth 60s linear infinite;
+}
+
+@keyframes fogMovementFourth {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.fog_img_fifth {
+  left: 65%;
+  animation: fogMovementFifth 40s linear infinite;
+}
+
+@keyframes fogMovementFifth {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.fog_img_sixth {
+  left: 85%;
+  animation: fogMovementSixth 20s linear infinite;
+}
+
+@keyframes fogMovementSixth {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

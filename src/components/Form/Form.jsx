@@ -47,7 +47,12 @@ const Form = ({ setIsFormOpen }) => {
     };
 
     const startHour = parseInt(formData.startTime.slice(0, 2));
-    if (startHour >= 0 && startHour < 5) {
+    const currentDate = new Date();
+    const selectedDate = new Date(`${formData.date}T${formData.startTime}`);
+    const isSameDay =
+      currentDate.toDateString() === selectedDate.toDateString();
+
+    if (isSameDay && startHour >= 0 && startHour < 5) {
       setIsCurfewWarningOpen(true);
     } else {
       setIsCurfewWarningOpen(false);
@@ -76,16 +81,22 @@ const Form = ({ setIsFormOpen }) => {
   const currentDate = new Date();
   const maxDate = new Date(
     currentDate.getFullYear(),
-    currentDate.getMonth() + 1,
+    currentDate.getDay() + 7,
     0
   );
-  const minDate = currentDate;
+  const minDate = currentDate.toISOString().slice(0, 10);
 
   const currentHour = currentDate.getHours();
   const currentMinute = currentDate.getMinutes();
-  const minTime = `${currentHour.toString().padStart(2, "0")}:${currentMinute
-    .toString()
-    .padStart(2, "0")}`;
+
+  const selectedDate = new Date(`${formData.date}T${formData.startTime}`);
+  const isSameDay = currentDate.toDateString() === selectedDate.toDateString();
+
+  const minTime = isSameDay
+    ? `${currentHour.toString().padStart(2, "0")}:${currentMinute
+        .toString()
+        .padStart(2, "0")}`
+    : "00:00";
 
   const maxTime = new Date(currentDate.getTime() + 8 * 60 * 60 * 1000);
   const maxTimeISO = maxTime.toTimeString().slice(0, 5);
@@ -106,7 +117,7 @@ const Form = ({ setIsFormOpen }) => {
         <h1>Get a date</h1>
 
         <input
-          type="name"
+          type="text"
           name="name"
           value={formData.name}
           placeholder="Nickname"
@@ -140,7 +151,6 @@ const Form = ({ setIsFormOpen }) => {
           onChange={handleChange}
         />
         <textarea
-          type="text"
           name="comment"
           value={formData.comment}
           placeholder="Comment"

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Rain from "../Rain/Rain";
-import Counter from "../Counter/Counter";
-import Snowfall from "../Snow/Snow";
-import Stars from "../Stars/Stars";
-import s from "./Weather.module.css";
+// import Clouds from "../Clouds/Clouds";
+// import Rain from "../Rain/Rain";
+// import Counter from "../Counter/Counter";
+// import Snowfall from "../Snow/Snow";
+// import Stars from "../Stars/Stars";
+// import Fog from "../Fog/Fog";
+// import s from "./Weather.module.css";
 
 const Weather = (props) => {
   const { date, startTime } = props;
@@ -12,26 +14,56 @@ const Weather = (props) => {
   const [lastDateTime, setLastDateTime] = useState({ date, startTime });
 
   useEffect(() => {
-    if (lastDateTime.date !== date || lastDateTime.startTime !== startTime) {
-      const apiUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=Dnipro&key=9bc67e2b86874c51ac795b99781460ed`;
+    const currentDate = new Date();
+    const targetDate = new Date(date);
+    const daysDifference = Math.floor(
+      (targetDate - currentDate) / (1000 * 60 * 60 * 24)
+    );
+
+    if (daysDifference >= 1 && daysDifference <= 5) {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=Dnipro&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`;
 
       fetch(apiUrl)
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to fetch weather data from Weatherbit.io");
+            throw new Error("Failed to fetch weather data from OpenWeatherMap");
           }
           return response.json();
         })
         .then((data) => {
-          const weatherData = data.data.find(
-            (item) => item.valid_date === date
+          const weatherData = data.list.find(
+            (item) => item.dt_txt.split(" ")[0] === date
           );
           if (!weatherData) {
             throw new Error(`No weather data available for the date ${date}`);
           }
           setWeather({
-            temperature: Math.round(weatherData.app_max_temp),
-            description: weatherData.weather.description,
+            temperature: Math.round(weatherData.main.temp),
+            description: weatherData.weather[0].description,
+          });
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
+
+      setLastDateTime({ date, startTime });
+    } else if (daysDifference >= 6 && daysDifference <= 7) {
+      const currentApiUrl = `https://api.weatherbit.io/v2.0/current?city=Dnipro&key=${process.env.REACT_APP_WEATHERBIT_API_KEY}`;
+
+      fetch(currentApiUrl)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              "Failed to fetch current weather data from Weatherbit"
+            );
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const currentWeatherData = data.data[0];
+          setWeather({
+            temperature: Math.round(currentWeatherData.temp),
+            description: currentWeatherData.weather.description,
           });
         })
         .catch((error) => {
@@ -40,7 +72,7 @@ const Weather = (props) => {
 
       setLastDateTime({ date, startTime });
     }
-  }, [date, startTime, lastDateTime]);
+  }, [date, startTime]);
 
   if (error) {
     return <div>{error}</div>;
@@ -49,50 +81,23 @@ const Weather = (props) => {
   if (!weather) {
     return <div></div>;
   }
-
   return (
     <div>
       {/* <p>Temperature: {weather.temperature}°C</p>
       <p>Description: {weather.description}</p> */}
-      {weather.description.includes("clouds") ||
+      {/* {weather.description.includes("clouds") ||
       weather.description.toLowerCase().includes("rain") ||
       weather.description.toLowerCase().includes("drizzle") ||
       weather.description.includes("Thunderstorm") ||
       weather.description.toLowerCase().includes("snow") ? (
-        <div className={s.clouds}>
-          <img
-            src={process.env.PUBLIC_URL + "/weather/clouds/cloud1.png"}
-            style={{ "--i": 1 }}
-            alt="cloud1"
-          />
-          <img
-            src={process.env.PUBLIC_URL + "/weather/clouds/cloud2.png"}
-            style={{ "--i": 2 }}
-            alt="cloud2"
-          />
-          <img
-            src={process.env.PUBLIC_URL + "/weather/clouds/cloud3.png"}
-            style={{ "--i": 3 }}
-            alt="cloud3"
-          />
-          <img
-            src={process.env.PUBLIC_URL + "/weather/clouds/cloud4.png"}
-            style={{ "--i": 4 }}
-            alt="cloud4"
-          />
-          <img
-            src={process.env.PUBLIC_URL + "/weather/clouds/cloud5.png"}
-            style={{ "--i": 5 }}
-            alt="cloud5"
-          />
-        </div>
-      ) : null}
+        <Clouds />
+      ) : null} */}
 
-      {weather.description === "clear sky" ||
+      {/* {weather.description === "clear sky" ||
       (weather.description.includes("clouds") &&
         weather.description !== "Overcast clouds") ? (
         <div className={s.sun}></div>
-      ) : null}
+      ) : null} */}
 
       {/* {weather.description === "clear sky" ||
       (weather.description.includes("clouds") &&
@@ -101,7 +106,7 @@ const Weather = (props) => {
           <img src={process.env.PUBLIC_URL + "/weather/moon.svg"} alt="moon" />
         </div>
       ) : null} */}
-      {weather.description === "clear sky" ? <Stars /> : null}
+      {/* {weather.description === "clear sky" ? <Stars /> : null}
 
       {weather.description.toLowerCase().includes("rain") ||
       weather.description.toLowerCase().includes("drizzle") ||
@@ -109,7 +114,8 @@ const Weather = (props) => {
         <Rain />
       ) : null}
       {weather.description.toLowerCase().includes("snow") ? <Snowfall /> : null}
-      <Counter temperature={weather.temperature} />
+      <Fog /> */}
+      {/* <Counter temperature={weather.temperature} /> */}
     </div>
   );
 };
