@@ -1,0 +1,31 @@
+.running_text_container {
+  width: 33.33%;
+  overflow: hidden;
+}
+
+.running_text {
+  font-size: 2em;
+  color: #e5edf4;
+  animation: runningTextAnimation 10s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes runningTextAnimation {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes runningTextAnimation {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}

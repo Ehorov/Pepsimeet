@@ -15,7 +15,7 @@ const Counter = (props) => {
   } else {
     result = 1 * interval;
   }
-  console.log(result);
+
   return <div style={{ opacity: 0 }}>{result}</div>;
 };
 

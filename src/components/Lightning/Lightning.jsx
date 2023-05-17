@@ -1,42 +1,38 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import s from "./Lightning.module.css";
 
 const Lightning = () => {
-  const [current, setCurrent] = useState(0);
-  const images = [
-    "lightning1.png",
-    "lightning2.png",
-    "lightning3.png",
-    "lightning4.png",
-    "lightning5.png",
-  ];
+  const [showLightning, setShowLightning] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => {
-        if (prev === images.length - 1) {
-          return 0;
-        } else {
-          return prev + 1;
-        }
-      });
-    }, 5000);
+    let timer;
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+    const generateRandomDelay = () => {
+      return Math.floor(Math.random() * (13000 - 7000 + 1)) + 5000;
+    };
+
+    const triggerLightning = () => {
+      setShowLightning(true);
+      setTimeout(() => {
+        setShowLightning(false);
+        const delay = generateRandomDelay();
+        timer = setTimeout(triggerLightning, delay);
+      }, 100);
+    };
+
+    const initialDelay = generateRandomDelay();
+    timer = setTimeout(triggerLightning, initialDelay);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   return (
-    <div className="lightning">
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={process.env.PUBLIC_URL + `/weather/lightning/${image}`}
-          alt={`lightning${index + 1}`}
-          style={{
-            opacity: current === index ? 1 : 0,
-            animationDelay: `${index * 1}s`,
-          }}
-        />
-      ))}
+    <div className={`${s["lightning-container"]}`}>
+      {showLightning && (
+        <div className={`${s["lightning-effect"]} ${s.show}`}></div>
+      )}
     </div>
   );
 };
