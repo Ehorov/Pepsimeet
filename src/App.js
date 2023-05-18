@@ -6,7 +6,6 @@ import Button from "./components/Button/Button";
 import CurfewWarning from "./components/CurfewWarning/CurfewWarning";
 import Weather from "./components/Weather/Weather";
 import s from "./app.module.css";
-import RunningText from "./components/RunningText/RunningText";
 import Dust from "./components/Dust/Dust";
 
 const App = () => {
@@ -49,7 +48,6 @@ const App = () => {
       )}
       <Button onClick={toggleForm} />
       <Weather />
-      <RunningText />
       <Dust />
     </div>
   );

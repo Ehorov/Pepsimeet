@@ -6,6 +6,8 @@ import Counter from "../Counter/Counter";
 import Snowfall from "../Snow/Snow";
 import Stars from "../Stars/Stars";
 import Fog from "../Fog/Fog";
+import Dust from "../Dust/Dust";
+import RunningText from "../RunningText/RunningText";
 import s from "./Weather.module.css";
 
 const Weather = (props) => {
@@ -174,6 +176,8 @@ const Weather = (props) => {
       ) : null}
 
       <Counter temperature={weather.temperature} />
+      {weather.description === "Unknown Precipitation" ? <RunningText /> : null}
+      {weather.description === "Sand/dust" ? <Dust /> : null}
     </div>
   );
 };

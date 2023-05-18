@@ -1,31 +1,33 @@
 .running_text_container {
-  width: 33.33%;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin: 0;
 }
 
 .running_text {
-  font-size: 2em;
-  color: #e5edf4;
-  animation: runningTextAnimation 10s linear infinite;
-  white-space: nowrap;
+  margin: 10%;
+  text-align: center;
+  font-size: calc(1em + 2vw);
+  text-transform: uppercase;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+  background-repeat: no-repeat;
+  background-size: 200% auto;
+  animation: animate 6s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@keyframes runningTextAnimation {
+@keyframes animate {
   0% {
-    transform: translateX(100%);
+    background-position: -100%;
   }
   100% {
-    transform: translateX(-100%);
-  }
-}
-
-@-webkit-keyframes runningTextAnimation {
-  0% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-  100% {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
+    background-position: 200%;
   }
 }
